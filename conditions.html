@@ -1,0 +1,270 @@
+<div class="mat-dialog-content d-flex flex-row justify-content-center">
+
+    <form [formGroup]="redFormData" (ngSubmit)="InsOrUpdRedCondition(redFormData.value)" novalidate>
+        <div class="red_condition">
+            <div  *ngIf="red_condition.expression!=undefined" class="d-flex justify-content-end me-2 mb-2">
+                <button  type="button" (click)="deleteCondition(red_condition.plc_id, red_condition.color)"
+                    class="fit-content btn-empty">
+                    <svg [ngbTooltip]="Deleteredcondition" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash-fill ms-2" viewBox="0 0 16 16">
+                        <path
+                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                    </svg>
+                    <ng-template #Deleteredcondition>
+                        Delete Condition
+                    </ng-template>
+                </button>
+            </div>
+
+            <div style="text-align:center;" class="mt-2">
+
+                🔴 Red Condition: <br>{{red_condition.expression}}
+
+            </div>
+
+            <div class="mt-3 d-flex flex-column">
+                <ng-container formArrayName="conditions">
+                    <ng-container *ngFor="let condition of red_c.controls; let i = index">
+                        <div [formGroupName]="i">
+
+                            <div *ngIf="i>0" class="d-flex justify-content-end align-items-center me-2">
+                                <button [ngbTooltip]="removeRedexpression" type="button" (click)="Shorten(i, 'red')"
+                                    class="fit-content btn-empty">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+                                    </svg>
+                                    <ng-template #removeRedexpression>
+                                        Remove expression
+                                    </ng-template>
+                                </button>
+                            </div>
+
+                            <div *ngIf="i>0" class="mx-auto mb-4 row g-3 align-items-center">
+                                <div class="col-auto">Separator:</div>
+                                <div class="col-auto">
+                                    <select class="form-control text-center" formControlName="separator">
+                                        <option>AND</option>
+                                        <option>OR</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div placement="start" ngbTooltip="Tooltip on left" [ngbTooltip]="Helpvalue1red" class="form-floating mb-3 mx-1">
+
+                                <input list="valueList" class="form-control" placeholder="text" formControlName="value1">                                                               
+                                <label for="floatingInput">Please Enter value1</label>
+
+                                <ng-template #Helpvalue1red>
+                                    Help value1 Red
+                                </ng-template>
+                                
+                            </div>
+
+                            <div  class="mx-auto row g-3 align-items-center">
+                                <div  class="col-auto">Operator:</div>
+                                <div  class="col-auto">
+                                    <select placement="start" ngbTooltip="Tooltip on left" [ngbTooltip]="Helopearator2red" class="form-control text-center" formControlName="operator">
+                                        <option>></option>
+                                        <option>>=</option>
+                                        <option><</option>
+                                        <option><=</option>
+                                        <option>==</option>
+                                        <option>!=</option>
+                                    </select>
+                                    <ng-template #Helopearator2red>
+                                        <b>Help Opearator</b> <p>Questa istruzione lega matematicamente</p> 
+                                    </ng-template>
+                                </div>
+                            </div>
+
+
+                            <div placement="start" ngbTooltip="Tooltip on left" [ngbTooltip]="Helpvalue2red" class="form-floating mx-1 mt-3">
+                                <input list="valueList" class="form-control" placeholder="text"
+                                    formControlName="value2">
+                                <label for="floatingInput">Please Enter value2</label>
+
+                                <ng-template #Helpvalue2red>
+                                    <b>Help Opearator</b> <p>Questa istruzione lega matematicamente</p> 
+                                </ng-template>
+                            </div>                 
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+
+                <div class="mb-0 d-flex justify-content-center">
+                    <button [ngbTooltip]="helpRedContent" type="button" (click)="Expand('red')"
+                        class="my-3 link fit-content btn-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </button>
+                    <ng-template #helpRedContent>
+                        Add expression
+                    </ng-template>
+                </div>
+
+                <!--
+                <div *ngIf="yellowFormData.invalid && yellowFormData.touched" class="alert alert-danger animate__animated animate__pulse">
+                    Fill in all fields.
+                </div>
+               -->
+
+                <div class="d-flex justify-content-center">
+
+                    <button *ngIf="red_condition.expression==undefined" type="submit"
+                        class="btn btn-outline-dark mb-3 d-flex align-items-center">Add Red Condition</button>
+
+                    <button *ngIf="red_condition.expression!=undefined" type="submit"
+                        class="btn btn-outline-dark mb-3 d-flex align-items-center">Update Red Condition</button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+    <!--YELLOW CONDITION-->
+
+    <form [formGroup]="yellowFormData" (ngSubmit)="InsOrUpdYellowCondition(yellowFormData.value)" novalidate>
+        <div class="ms-3 yellow_condition">
+            <div *ngIf="yellow_condition.expression!=undefined" class="d-flex justify-content-end me-2 mb-2">
+                <button type="button" (click)="deleteCondition(yellow_condition.plc_id, yellow_condition.color)"
+                    class="fit-content btn-empty">
+                    <svg [ngbTooltip]="Deleteyellowcondtion" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash-fill ms-2" viewBox="0 0 16 16">
+                        <path
+                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                    </svg>
+                </button>
+                <ng-template #Deleteyellowcondtion>
+                    Delete Condition
+                </ng-template>
+            </div>
+
+            <div style="text-align:center;" class="mt-2">
+
+                🟡 Yellow Condition: <br>{{yellow_condition.expression}}
+
+            </div>
+
+            <div class="mt-3 d-flex flex-column">
+                <ng-container formArrayName="conditions">
+                    <ng-container *ngFor="let condition of yel_c.controls; let i = index">
+                        <div [formGroupName]="i">
+                            <div *ngIf="i>0" class="d-flex justify-content-end">
+                                <button [ngbTooltip]="Removereyellowdcondition" type="button"
+                                    (click)="Shorten(i, 'yellow')" class="fit-content btn-empty">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+                                    </svg>
+                                    <ng-template #Removereyellowdcondition>
+                                        Remove expression
+                                    </ng-template>
+                                </button>
+                            </div>
+                            <div *ngIf="i>0" class="mx-auto mb-4 row g-3 align-items-center"> 
+                                <div class="col-auto">Separator:     </div>
+                                <div class="col-auto">
+                                    <select class="form-control text-center" formControlName="separator">
+                                        <option>AND</option>
+                                        <option>OR</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--VALUE 1 YELLOW-->
+                            <div placement="end" ngbTooltip="Tooltip on right" [ngbTooltip]="Helpvalue1yellow" class="form-floating mb-3 mx-1">
+                                
+                                <input  list="valueList" class="form-control" formControlName="value1" placeholder="text">
+                                    
+                                <label for="floatingInput">Please Enter value1</label>
+                                <ng-template #Helpvalue1yellow>
+                                    Help prima istruzione gialla 
+                                </ng-template>
+                            </div>
+
+                            <!--OPERATOR-->
+                            <div  class="mx-auto row g-3 align-items-center">
+                                <div class="col-auto">Operator:</div>
+                                <div  class="col-auto">
+                                    <select placement="end" ngbTooltip="Tooltip on right" [ngbTooltip]="Helpoperatoryellow" class="form-control text-center" formControlName="operator">
+                                        <option>></option>
+                                        <option>>=</option>
+                                        <option><</option>
+                                        <option><=</option>
+                                        <option>==</option>
+                                        <option>!=</option>
+                                    </select>
+                                    <ng-template #Helpoperatoryellow>
+                                       <b>Help Opearator</b> <p>Questa istruzione lega matematicamente</p> 
+                                    </ng-template>
+                                </div>
+                            </div>
+
+                            <!--VALUE 2-->
+                            <div placement="end" ngbTooltip="Tooltip on right" [ngbTooltip]="Helpvalue2yellow" class="form-floating mx-1 mt-3">
+                                <input  list="valueList" class="form-control" placeholder="text"
+                                    formControlName="value2">
+                                <label for="floatingInput">Please Enter value2</label>
+                                <ng-template #Helpvalue2yellow>
+                                    Help seconda istruzione gialla
+                                </ng-template>
+                            </div>
+                              
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <div class="mb-0 d-flex justify-content-center">
+                    <button [ngbTooltip]="helpYellowContent" type="button" (click)="Expand('yellow')"
+                        class="my-3 link fit-content btn-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </button>
+
+                    <ng-template #helpYellowContent>
+                        Add expression
+                    </ng-template>
+                </div>
+                <!--
+                <div *ngIf="yellowFormData.invalid && yellowFormData.touched" class="alert alert-danger animate__animated animate__pulse">
+                    Fill in all fields.
+                </div>
+               -->
+                <div class="d-flex justify-content-center">
+
+                    <button *ngIf="yellow_condition.expression==undefined" type="submit"
+                        class="btn btn-outline-dark mb-3 d-flex align-items-center">Add Yellow Condition</button>
+
+
+
+                    <button *ngIf="yellow_condition.expression!=undefined" type="submit"
+                        class="btn btn-outline-dark mb-3 d-flex align-items-center">Update Yellow Condition</button>
+
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<datalist [hidden]="true" id="valueList" class="form-control">
+    <option *ngFor="let variable of variables">{{variable.name}}</option>
+    <option>TRUE</option>
+    <option>FALSE</option>
+    <option><input type="text"></option>
+</datalist>
